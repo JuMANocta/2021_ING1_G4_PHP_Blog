@@ -44,7 +44,7 @@ if(isset($_FILES['photo']) && $_FILES['photo']['error'] == 0){
 echo BR;
 //? injecter les informations dans la BDD
 
-if(isset($_POST['id'])){
+if(isset($_POST['id']) && !empty($_POST['id'])){
     $lastInsert = updateContenus($base,[$_POST['id'],
                                     $_POST['title'],
                                     date('Y-m-d H:i:s'),
