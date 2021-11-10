@@ -27,7 +27,7 @@
 include("../modele/connec.php");
 include("../modele/crud.php");
 if(isset($_GET['id'])){
-    $url = "../controleur/controlUpdate.php";
+    $url = "../controleur/controlFormulaire.php";
     $recupInfo = getContenusUpdate($base,$_GET['id']);
     // ["id"]=>string(1) "4"
     // ["titre"]=>string(5) "test2"

@@ -37,8 +37,11 @@ function suppression($base, $id){
     return $stmt->rowCount();
 }
 function updateContenus($base, $args){
-    $update = "UPDATE contenu SET titre = ?, date = ?, commentaire = ? WHERE id = '$args[id]'";
+    $update = "UPDATE contenu SET titre = :titre, date = :date, commentaire = :commentaire, photo = :photo WHERE id = '".$args[0]."'";
     $stmt = $base->prepare($update);
-    $stmt->execute($args);
-    return $base->lastUpdateId();
+    $stmt->bindParam(":titre",$args[1]);
+    $stmt->bindParam(":date",$args[2]);
+    $stmt->bindParam(":commentaire",$args[3]);
+    $stmt->bindParam(":photo",$args[4]);
+    $stmt->execute();
 }
