@@ -43,20 +43,11 @@ if(isset($_FILES['photo']) && $_FILES['photo']['error'] == 0){
 }else{echo "☠️ problème à l'envoi ☠️";}
 echo BR;
 //? injecter les informations dans la BDD
-
+var_dump($_POST);
 if(isset($_POST['id']) && !empty($_POST['id'])){
-    $lastInsert = updateContenus($base,[$_POST['id'],
-                                    $_POST['title'],
-                                    date('Y-m-d H:i:s'),
-                                    $_POST['comment'],
-                                    $_FILES['photo']['name']
-                                    ]);
+    updateContenus($base,[$_POST['id'],$_POST['title'],date('Y-m-d H:i:s'),$_POST['comment'],$_FILES['photo']['name']]);
 }else{
-    $lastInsert = createContenus($base,[$_POST['title'],
-                                    date('Y-m-d H:i:s'),
-                                    $_POST['comment'],
-                                    $_FILES['photo']['name']
-                                    ]);
+    $lastInsert = createContenus($base,[$_POST['title'],date('Y-m-d H:i:s'),$_POST['comment'],$_FILES['photo']['name'], $_POST['id_user']]);
 }
 echo $lastInsert;
 

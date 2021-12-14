@@ -1,6 +1,10 @@
 <?php 
 include('modele/connec.php');
 include('modele/crud.php');
+session_start();
+if (!isset($_SESSION["loggd_id"])) {
+    header('Location: vue/login.php?erreur=session');
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,6 +35,9 @@ include('modele/crud.php');
 </head>
 
 <body>
+    <form action="controleur/deconnexion.php" method="post">
+        <input type="submit" name="" value="deco">
+    </form>
     <h1>BLOG ING 1</h1>
         <a href="./vue/formulaire.php" id="formulaire" class="btn btn-dark btn-lg btn-block mx-auto" role="button">Ajouter un formulaire</a>
     <div class="container">
@@ -53,8 +60,10 @@ include('modele/crud.php');
                         <td><?= $row['commentaire']; ?></td>
                         <td><img style="max-width: 200px;" src="./res/images/<?= $row['photo']; ?>" alt="<?= $row['titre'] ?>"></td>
                         <td>
+                            <?php if($row['id_user'] == $_SESSION["loggd_id"]){?>
                             <a href="./controleur/controlSuppression.php?id=<?= $row['id']; ?>&photo=<?= $row['photo']; ?>" class="btn btn-dark active" role="button" aria-pressed="true">🗑️</a>
-                            <a href="./vue/formulaire.php?id=<?= $row['id']; ?>" class="btn btn-dark active" role="button" aria-pressed="true">✏️</a>   
+                            <a href="./vue/formulaire.php?id=<?= $row['id']; ?>" class="btn btn-dark active" role="button" aria-pressed="true">✏️</a>
+                            <?php } ?> 
                     </td>
                     </tr>
                 <?php endforeach; ?>

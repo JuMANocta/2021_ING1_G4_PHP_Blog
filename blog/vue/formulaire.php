@@ -26,6 +26,10 @@
 <?php
 include("../modele/connec.php");
 include("../modele/crud.php");
+session_start();
+if (!isset($_SESSION["loggd_id"])) {
+    header('Location: vue/login.php?erreur=session');
+}
 if(isset($_GET['id'])){
     $url = "../controleur/controlFormulaire.php";
     $recupInfo = getContenusUpdate($base,$_GET['id']);
@@ -45,6 +49,7 @@ if(isset($_GET['id'])){
     <form action="<?= $url?>" method="POST" enctype="multipart/form-data">
         <div>
             <input type="hidden" name="id" value="<?= (isset($_GET['id']) ? $recupInfo[0]["id"] : "") ?>">
+            <input type="hidden" name="id_user" value="<?= (isset($_GET['id']) ? $_SESSION["loggd_id"] : $_SESSION["loggd_id"]) ?>">
             <input class="form-control" type="text" placeholder="Titre" name="title" value="<?= (isset($_GET['id']) ? $recupInfo[0]["titre"] : "") ?>" required>
         </div>
         <hr>
